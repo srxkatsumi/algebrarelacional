@@ -1,0 +1,88 @@
+    -- pt(br) Filtrar clientes apenas da cidade do Rio de Janeiro.
+    -- en  Filter customers only from the city of Rio de Janeiro.
+    σ cidade = 'Rio de Janeiro' (Clientes)
+    -- _____________________________________
+    
+    -- pt(br) Filtrar livros mais baratos que 50 reais
+    -- en  Filter books cheaper than 50 reais
+    σ preço < 50 (Livros)
+     -- _____________________________________
+       
+    -- pt(br) Filtrar livros mais baratos que 50 reais e que são do autor George Orwell.
+    -- en  Filter books that are cheaper than 50 reais and are by the author George Orwell.
+    σ preco < 50 ∧ autor = 'George Orwell' (Livros)
+     -- _____________________________________
+       
+    -- pt(br) Filtrar livros mais baratos que 50 reais ou que são do autor George Orwell.
+    -- en  Filter out books that are cheaper than 50 reais or that are by the author George Orwell.
+    σ preco < 50 ∨ autor = 'George Orwell' (Livros)
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os nomes dos livros que possuem preço maior que R$50?
+    -- en What are the names of the books that cost more than R$50?
+    π nome_livro(σ preco > 50 (Livros))
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os vendedores que possuem mais de 5 anos de experiência?
+    -- en Which salespeople have more than 5 years experience?
+    π nome(σ anos_exp > 5 (Vendedores))
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os códigos de livros recomendados pela revista ‘BestBooks Magazine’?
+    -- en What book codes does BestBooks Magazine recommend?
+    π id_livro (LivrosRecomendados)
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os livros com estoque menor que 20 unidades?
+    -- en Which books are in stock for less than 20 units?
+    σ qtd_estoque < 20 (Livros)
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os códigos dos livros mais vendidos durante o ano de 2021?
+    -- en What are the best-selling book codes for 2021?
+    π id_livro(σ ano=2021 (LivroMaisVendidos))
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os livros com preço entre R$30 e R$50?
+    -- en Which books are priced between R$30 and R$50?
+    π nome_livro(σ preco >30 ∨ preco < 50 (Livros))
+    -- _____________________________________ 
+
+    -- pt(br) Existe algum livros sem exemplar em estoque? Quais?
+    -- en Are there any books with no copies in stock? Which ones?
+    π nome_livro(σ qtd_estoque < 0 (Livros))
+    -- _____________________________________ 
+
+    -- pt(br) Quais são os livros que custam mais de R$ 50 e contém mais de 5 unidades no estoque?
+    -- en Which books cost more than R$50 and have more than 5 units in stock?
+    π nome_livro(σ preco > 50 ∨ qtd_estoque > 5 (Livros))
+    -- _____________________________________ 
+
+    -- pt(br) Quais livros atendem os requisitos do amigo oculto do cliente André: ser um livro de George Orwell ou de qualquer outra autoria que seja mais caro que 30 reais?
+    -- en Which books meet the requirements of André s Secret Santa: to be a book by George Orwell or any other author that costs more than R$30?
+    σ preco > 30 ∧ autor = 'George Orwell' (Livros)
+     -- _____________________________________ 
+    
+     -- pt(br) Qual o nome e preço dos livros que custam até 30 reais?
+     -- en What are the names and prices of books that cost up to 30 reais?
+    π nome_livro, preco(σ preco < 30 (Livros))
+    -- _____________________________________ 
+
+    -- pt(br) Quais livros da “Colleen Houck” venderam mais de 3 exemplares em um único pedido?
+    -- en Which books by "Colleen Houck" have sold more than 3 copies in a single order?
+    
+    π nome_livro (σ qtd_vendida ≥ 3 (σ autor = 'Colleen Houck'(Livros⨝ Vendas)))
+    -- _____________________________________ 
+
+    -- pt(br) Qual o nome dos livros mais recomendados com nota média superior a 4.3?
+    -- en What are the names of the most recommended books with an average rating above 4.3?
+     π nome_livro(σ nota_media > 4.3 (LivrosRecomendados⨝Livros))
+     -- _____________________________________ 
+ 
+     
+     -- pt(br)  Quais são os livros que tiveram vendas acima de 10 unidades em um único pedido OU possuem preço total igual a R$20?
+     -- en Which books have sold more than 10 units in a single order OR have a total price equal to R$20?
+     -- _____________________________________ 
+ 
+
+
